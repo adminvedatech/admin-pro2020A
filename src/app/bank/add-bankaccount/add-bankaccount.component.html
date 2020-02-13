@@ -1,0 +1,54 @@
+<div class="container">
+    <hr>
+    <h2  *ngIf="bank.id == null" >Agregar Cuenta Bancaria</h2>
+
+    <h2  *ngIf="bank.id !== null" >Editar Cuenta Bancaria</h2>
+
+<hr>
+    <form [formGroup] = "form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <input type="text"  readonly class="form-control" formControlName="id" id="id" aria-describedby="emailHelp" placeholder="ID">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="nameBank" id="nameBank" placeholder="Nombre de Banco es requerido">
+                <small id="nameBank" *ngIf="!form.controls['nameBank'].valid" class="text-danger">*Este campo es requerido.</small>
+        </div>
+        
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="accountNumber" id="accountNumber" placeholder="Numero de Cuenta es requerido">
+            <small id="nameBank" *ngIf="!form.controls['accountNumber'].valid" class="text-danger">*Este campo es requerido.</small>
+
+        </div>
+        
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="address" id="address" placeholder="Direccion">
+        </div>
+        
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="email" id="email" placeholder="Email">
+        </div>
+        
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="phone" id="phone" placeholder="Telefonos">
+        </div>
+        
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="observation" id="observation" placeholder="Notas">
+        </div>
+        
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="balance" id="balance" placeholder="Balance Inicial es requerido">
+            <small id="nameBank" *ngIf="!form.controls['balance'].valid" class="text-danger">*Este campo es requerido.</small>
+
+        </div>
+        
+        <div class="form-group">
+            <input type="text" readonly class="form-control" formControlName="balanceToday" id="balanceToday" placeholder="Balance actual">
+        </div>
+        
+        <button type="submit"  *ngIf="bank.id == null" class="btn btn-primary">Submit</button>
+        <button type="submit"  *ngIf="bank.id !== null" class="d-inline btn btn-warning">Actualizar</button>
+        <button (click)="cleanForm()"  *ngIf="bank.id !== null" class="d-inline btn btn-danger">Cancelar</button>
+        
+    </form>
+</div>

@@ -1,0 +1,39 @@
+
+    <div class="container">
+        <hr>
+        <h2>Lista de Cuentas Bancarias</h2>
+        <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre del Banco</th>
+            <th scope="col">Numero de Cuenta</th>
+            <th scope="col">Email </th>
+            <th scope="col">Telefono </th>
+            <th scope="col">Balance Inicial </th>
+            <th scope="col">Balance Actual </th>
+            <th scope="col">Acciones</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bank of banks">
+            <th scope="row">{{bank.id}}</th>
+            <td>{{bank.nameBank}}</td>
+            <td>{{bank.accountNumber}}</td>
+            <td>{{bank.email}}</td>
+            <td>{{bank.phone}}</td>
+            <td>{{bank.balance | currency}}</td>
+            <td>{{bank.balanceToday | currency}}</td>
+            <td><a class="btn btn-info" [routerLink] ="['/bank/edit', bank.id]">Editar</a>
+            </td>
+          </tr>
+          <tr class="bg-primary">
+            <th scope="row"></th>
+            <td colspan="5"><h5 class="text-white">Balance Total Actual </h5></td>
+            <td ><h5 class="text-white">{{total | currency}}</h5></td>
+          </tr>
+        </tbody>
+      </table>
+    
+    </div>
