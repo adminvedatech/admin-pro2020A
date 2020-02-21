@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerService } from './customer.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Invoice } from './customer.model';
+import { BankTransaction } from '../bank/bank.model';
 
 @Component({
   selector: 'app-customer',

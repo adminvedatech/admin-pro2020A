@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
-import { Bank } from './bank.model';
-import { Observable } from 'rxjs';
+import { Bank, BankTransaction } from './bank.model';
+import { Observable, Subject } from 'rxjs';
 import { URL_SERVICIOS } from '../auth/url/url';
 import { tap } from 'rxjs/operators';
+import { SubAccount } from '../account/account.model';
 
 
 @Injectable({
@@ -13,6 +14,13 @@ export class BankService {
 
   url = URL_SERVICIOS;
   api = "api/bank/getBankAccountById";
+
+  private _refreshNeeded$ = new Subject<void>();
+
+  get refreshNeeded$() {
+    return this._refreshNeeded$;
+  }
+  
 
   httpHeaders: HttpHeaders;
 
@@ -33,6 +41,14 @@ export class BankService {
       
   
       }
+
+      getAllBanksTransaction(): Observable<BankTransaction[]> {
+        console.log('GET ALL ACCOUNTS TYPE');
+         this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+          return this.http.get<BankTransaction[]>(URL_SERVICIOS + '/api/dto/getAllBankTransaction', {headers: this.httpHeaders})
+        
+    
+        }
 
       getBankById(id: number): Observable<Bank> {
         console.log('GET ALL ACCOUNTS TYPE');
@@ -67,13 +83,23 @@ export class BankService {
         reportProgress: true,
         responseType: 'text'
       });
-      return this.http.request(req);
-      /* .pipe(
+      return this.http.request(req)
+       .pipe(
         tap(() =>  {
           this._refreshNeeded$.next();
         })
-      ); */
+      ); 
     }
+
+
+         
+    getAllSubAccounts(): Observable<SubAccount[]> {
+      console.log('GET ALL ACCOUNTS TYPE');
+       this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.get<SubAccount[]>(URL_SERVICIOS + '/api/account/getAllSubAccounts', {headers: this.httpHeaders})
+      
+  
+      }
   
 
  

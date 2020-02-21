@@ -1,0 +1,110 @@
+ <hr>
+<div class="container">
+ 
+  <div class="card">
+
+    <div class="card-body">
+
+      
+      
+      <form [formGroup] = "orderForm" (ngSubmit)="onSubmit()">
+        
+        <div class="row">
+          <div class="col-5">
+         
+            <h5 class="display-4"> Poliza</h5>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style
+              </p>
+         
+          </div>
+          
+          <div class="col-2">
+            
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Tipo</label>
+              </div>
+              <select class="custom-select" id="inputGroupSelect01" formControlName="type">
+                <option value="Dr">Dr</option>
+                <option value="Eg">Eg</option>
+                <option value="Ig">Ir</option>
+              </select>
+            </div>
+          </div>
+          
+          
+          <div class="col-2">
+          <div class="form-group">
+            <!-- <label for="exampleInputEmail1">Concepto</label> -->
+            <input type="text" class="form-control" formControlName="number" id="name" aria-describedby="number" placeholder="No de Poliza">
+            <small id="number" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          
+        </div>
+        
+        <div class="col-3">
+          <div class="form-group">
+            <!-- <label for="exampleInputEmail1"></label> -->
+            <input type="date" class="form-control" formControlName="date" id="date" aria-describedby="date" placeholder="Fecha">
+            <small id="date" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+        </div>
+        
+      </div>
+      
+      
+      <div class="form-group">
+        <label for="exampleInputEmail1">Concepto de la Poliza</label>
+        <input type="text" class="form-control" formControlName="concept" id="concept" aria-describedby="number" placeholder="Concepto">
+        <small id="concept" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      
+      <div formArrayName="items"
+      *ngFor="let item of orderForm.get('items').controls; let i = index;">
+      <div [formGroupName]="i">
+        
+        
+        <div class="form-row">
+          <div class="col-3">
+            <div class="form-group" formGroupName="subAccount">
+              <!-- <label for="inputState">Seleccione una Cuenta</label> -->
+              <select class="form-control" formControlName="id">
+                <option>Choose oppo suit</option>
+                <option *ngFor="let suit of subAccounts" [ngValue]="suit.id">{{suit.nameAccount+ ": " + (suit.accountNumber)}}</option>
+              </select>      
+              <!-- <small id="inputState" *ngIf="!form.controls['accountType'].valid" class="text-danger">*Este campo es requerido.</small> -->
+            </div> 
+          </div>
+          <div class="col-3">
+        <input type="text" class="form-control" formControlName="concept" placeholder="Concepto">
+      </div>
+      <div class="col-2">
+        <input type="text" class="form-control" formControlName="debit" placeholder="Debito">
+      </div>
+      <div class="col-2">
+        <input type="text" class="form-control" formControlName="credit" placeholder="Credito">
+      </div>
+      <div class="col-1">
+        <button (click)="addItem()" class="btn btn-outline-primary btn-sm">Agregar</button>
+      </div>
+      <div class="col-1">
+        <button (click)="removeItem()" class="btn btn-outline-dark btn-sm">Borrar</button>
+      </div>
+    </div>
+    
+    <!-- <input formControlName="concept" placeholder="Concept">
+      <input formControlName="debit" placeholder="Debit">
+      <input formControlName="credit" placeholder="Credit"> -->
+      
+    </div>
+    
+    <!-- Chosen name: {{ orderForm.controls.items.controls[i].controls.name.value }} -->
+  </div>
+  
+  <button  class="btn btn-primary" type="submit">Enviar</button>
+  
+</form>
+</div>
+</div>
+
+</div>

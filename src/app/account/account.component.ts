@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AccountService } from './account.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { AccountType } from './account.model';
+
 
 @Component({
   selector: 'app-account',
@@ -14,12 +16,18 @@ export class AccountComponent implements OnInit {
   selectedFile: File = null;
   name = '';;
   currentFileUpload: File = null;
-
+  accountsType: AccountType[]=[];
 
 
   constructor(private accountService: AccountService) { }
 
   ngOnInit() {
+
+    this.accountService.refreshNeeded$
+    .subscribe(() => {
+      this.getAllAccountType();
+    });
+    this.getAllAccountType();
   }
 
    /*----------- Selecciona Archivo AccountType en formato CSV para ser Enviado -------------*/
@@ -66,7 +74,7 @@ onUploadTxtFile() {
           // this.snackbarService.success(':: Proceso exitoso!');
           this.selectedFile = null;
           this.name = null;
-          // this.loadAccounting();
+           this.getAllAccountType();
           this.progress.percentage = 0;
 
         }
@@ -88,6 +96,14 @@ cancelFile() {
   this.selectedFile = null;
   this.name = null;
   console.log('Cancel File', this.selectedFile);
+}
+
+getAllAccountType() {
+  this.accountService.getAllAccounts().subscribe(res => {
+    this.accountsType = res;
+    console.log('ACCOUNT TYPE ', this.accountsType);
+    
+  })
 }
 
 

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpHeaders, HttpEvent, HttpRequest, HttpClient } from '@angular/common/http';
+import { URL_SERVICIOS } from '../auth/url/url';
+import { AccountType, SubAccount } from './account.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +12,24 @@ export class AccountService {
 
   private httpHeaders = new HttpHeaders();
 
+  private _refreshNeeded$ = new Subject<void>();
+
+  get refreshNeeded$() {
+    return this._refreshNeeded$;
+  }
+
 
   constructor(private http: HttpClient) { }
+
+
+  createSubAccount(object: SubAccount): Observable<SubAccount> {
+    this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+      // url += '?token=' + this.token;
+      return this.http.post<SubAccount>(URL_SERVICIOS +
+          '/api/account/addSubAccount', object, {headers: this.httpHeaders})
+        
+    }
+
 
      // .pipe( map(response => response as AccountType[]))
     // Otra opcion para mandar file
@@ -25,13 +44,31 @@ export class AccountService {
         reportProgress: true,
         responseType: 'text'
       });
-      return this.http.request(req);
-      /* .pipe(
+      return this.http.request(req)
+      .pipe(
         tap(() =>  {
           this._refreshNeeded$.next();
         })
-      ); */
+      );
     }
+
+
+    getAllAccounts(): Observable<AccountType[]> {
+      console.log('GET ALL ACCOUNTS TYPE');
+       this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.get<AccountType[]>(URL_SERVICIOS + '/api/account/getAllAccountsType', {headers: this.httpHeaders})
+      
+  
+      }
+
+      
+    getAllSubAccounts(): Observable<SubAccount[]> {
+      console.log('GET ALL ACCOUNTS TYPE');
+       this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.get<SubAccount[]>(URL_SERVICIOS + '/api/account/getAllSubAccounts', {headers: this.httpHeaders})
+      
+  
+      }
 
     
 }

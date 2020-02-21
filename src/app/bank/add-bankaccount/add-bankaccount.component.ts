@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BankService } from '../bank.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
-import { switchAll } from 'rxjs/operators';
-import { Bank } from '../bank.model';
+import { Bank, SubAccountBank } from '../bank.model';
 import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 export class AddBankaccountComponent implements OnInit {
 
   form: FormGroup;
+  subAccounts: SubAccountBank[] = [];
+  // bank: Bank;
   bank: Bank = {
     id: null,
     nameBank: '',
@@ -24,29 +26,29 @@ export class AddBankaccountComponent implements OnInit {
     email: '',
     observation: '',
     balance: null,
-    balanceToday: null
-
+    balanceToday: null,
+   
   }
 
   submitted: boolean = false;
 
-  bankUpdate:Bank = {
-    id: null,
-    nameBank: '',
-    accountNumber: '',
-    address: '',
-    phone: '',
-    email: '',
-    observation: '',
-    balance: null,
-    balanceToday: null
+  // bankUpdate:Bank = {
+  //   id: null,
+  //   nameBank: '',
+  //   accountNumber: '',
+  //   address: '',
+  //   phone: '',
+  //   email: '',
+  //   observation: '',
+  //   balance: null,
+  //   balanceToday: null
 
-  };
+  // };
 
   
   Id: number = null;
 
-  constructor(private bankservice: BankService,
+  constructor( private bankservice: BankService,
                private formBuilder: FormBuilder,
                private _routerLink: ActivatedRoute,
                private router: Router) {
@@ -71,6 +73,9 @@ export class AddBankaccountComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       id: [''],
+      subAccount: this.formBuilder.group({
+        id: ['', Validators.required]
+      }),
       nameBank: ['', Validators.required],
     accountNumber: ['', Validators.required],
     address: [''],
@@ -81,6 +86,8 @@ export class AddBankaccountComponent implements OnInit {
     balanceToday: ['']
 
     })
+
+    this.getAllSubAccounts();
 
    
   }
@@ -119,7 +126,7 @@ export class AddBankaccountComponent implements OnInit {
   }
 
   cleanForm() {
-    this.form.setValue(this.bankUpdate);
+    // this.form.setValue(this.bankUpdate);
      this.router.navigate(['/bank/bank-list']);
     
   }
@@ -135,6 +142,14 @@ export class AddBankaccountComponent implements OnInit {
 
     })
     
+  }
+
+  getAllSubAccounts(){
+    this.bankservice.getAllSubAccounts().subscribe(res=> {
+      console.log('SUBACCOUNTS ', res);
+      this.subAccounts = res;
+      
+    })
   }
 
  
