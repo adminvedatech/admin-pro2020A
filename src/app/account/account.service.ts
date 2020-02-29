@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpHeaders, HttpEvent, HttpRequest, HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../auth/url/url';
-import { AccountType, SubAccount } from './account.model';
-import { tap } from 'rxjs/operators';
+import { AccountType, SubAccount, Poliza} from './account.model';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +31,15 @@ export class AccountService {
     }
 
 
-     // .pipe( map(response => response as AccountType[]))
-    // Otra opcion para mandar file
+    createPoliza(object: Poliza): Observable<Poliza> {
+      this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+        // url += '?token=' + this.token;
+        return this.http.post<Poliza>(URL_SERVICIOS +
+            '/api/poliza/addPoliza', object, {headers: this.httpHeaders})
+          
+      }
+  
+
     pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
       const formdata: FormData = new FormData();
       this.httpHeaders = new HttpHeaders({'Accept': 'application/json'});
@@ -57,6 +64,10 @@ export class AccountService {
       console.log('GET ALL ACCOUNTS TYPE');
        this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
         return this.http.get<AccountType[]>(URL_SERVICIOS + '/api/account/getAllAccountsType', {headers: this.httpHeaders})
+        // .pipe(
+        //   map( obj => obj.filter(r => (r.subaccount.id !==null)[0]  )
+        //   )
+        // );
       
   
       }

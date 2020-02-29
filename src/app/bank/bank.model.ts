@@ -16,18 +16,18 @@ export class Bank {
 
 export class BankTransaction {
    public id: null;
-   public Cuenta: string;
+   public cuenta: string;
    public fechaOperacion: string;
    public fecha: string;
    public referencia: string;
    public descripcion: string;
    public codeTransac: string;
    public sucursal: string;
-   public deposito: number;
-   public retiro: number;
+   public depositos: number;
+   public retiros: number;
    public saldo: number;
    public movimiento: number;
-   public DescripcionDetallada: string;
+   public descripcionDetallada: string;
 
 }
 

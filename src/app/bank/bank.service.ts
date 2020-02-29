@@ -3,7 +3,7 @@ import { HttpHeaders, HttpClient, HttpRequest, HttpEvent } from '@angular/common
 import { Bank, BankTransaction } from './bank.model';
 import { Observable, Subject } from 'rxjs';
 import { URL_SERVICIOS } from '../auth/url/url';
-import { tap } from 'rxjs/operators';
+import { tap, map, filter } from 'rxjs/operators';
 import { SubAccount } from '../account/account.model';
 
 
@@ -46,6 +46,10 @@ export class BankService {
         console.log('GET ALL ACCOUNTS TYPE');
          this.httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
           return this.http.get<BankTransaction[]>(URL_SERVICIOS + '/api/dto/getAllBankTransaction', {headers: this.httpHeaders})
+          .pipe(
+            map( obj => obj.filter(r => r.retiros > 0)
+            )
+          );
         
     
         }

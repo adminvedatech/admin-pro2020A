@@ -42,8 +42,6 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     AuthService,
     AuthRequestOptions,
     LoginService,
-    // BankService,
-    
     ErrorService,
     {
       provide: ErrorHandler,

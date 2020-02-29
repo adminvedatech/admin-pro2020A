@@ -101,11 +101,11 @@ cancelFile() {
 
   getAllBankTransaction() {
 
-    this.bankservice.getAllBanksTransaction().subscribe(res=> {
-      console.log('Bank Transaction ',res);
+    this.bankservice.getAllBanksTransaction().subscribe(res => {
+      console.log('Bank Transaction ', res);
       this.bankTransaction = res;
-      
-    })
+
+    });
 
 }
 

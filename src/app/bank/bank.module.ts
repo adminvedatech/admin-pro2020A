@@ -11,19 +11,29 @@ import { BankService } from './bank.service';
 import { BankTransactionComponent } from './bank-transaction/bank-transaction.component';
 import { AccountService } from '../account/account.service';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { TransactionListComponent } from './bank-transaction/transaction-list/transaction-list.component';
+import { TransactionItemComponent } from './bank-transaction/transaction-list/transaction-item/transaction-item.component';
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 
 @NgModule({
-  declarations: [BankComponent,BankDetailComponent,BankListComponent,BankItemComponent, AddBankaccountComponent, BankTransactionComponent],
+  declarations: [BankComponent,
+  BankDetailComponent,
+  BankListComponent,
+  BankItemComponent,
+  AddBankaccountComponent,
+  BankTransactionComponent,
+  TransactionListComponent,
+  TransactionItemComponent,
+],
   imports: [
     CommonModule,
      // FormsModule,
     NgxMaskModule.forRoot(options),
-
     ReactiveFormsModule,
     BankRoutingModule
   ],
+  
   providers: [
     BankService,
     AccountService

@@ -10,6 +10,7 @@ import { SubaccountComponent } from './subaccount/subaccount.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { SubaccountListComponent } from './subaccount-list/subaccount-list.component';
 import { AddAccountingPolicyComponent } from './add-accounting-policy/add-accounting-policy.component'
+import { BankService } from '../bank/bank.service';
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
