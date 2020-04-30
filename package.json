@@ -29,7 +29,7 @@
     "bootstrap-sweetalert": "^1.0.1",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jwt-decode": "^2.2.0",
     "ng2-file-upload": "^1.4.0",
     "ngx-mask": "^8.1.7",
